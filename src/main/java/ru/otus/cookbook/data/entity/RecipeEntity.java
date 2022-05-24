@@ -1,5 +1,7 @@
 package ru.otus.cookbook.data.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -8,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Indexed
+@Getter
+@Setter
 @Entity(name = "Recipe")
 public class RecipeEntity {
 

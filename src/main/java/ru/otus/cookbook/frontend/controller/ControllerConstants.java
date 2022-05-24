@@ -1,10 +1,9 @@
 package ru.otus.cookbook.frontend.controller;
 
-class ControllerConstants {
+import lombok.experimental.UtilityClass;
 
-    // No instantiation possible
-    private ControllerConstants() {
-    }
+@UtilityClass
+class ControllerConstants {
 
     static final String REDIRECT_PREFIX = "redirect:";
 

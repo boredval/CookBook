@@ -24,9 +24,7 @@ import java.util.Set;
 
 @Configuration
 public class CookbookConfig implements WebMvcConfigurer {
-
     public static final String COOOKBOOK_CONVERTER_BEAN_NAME = "cookbookConverter";
-
     @Value("${jdbc.url}")
     private String jdbcUrl;
 
@@ -42,12 +40,12 @@ public class CookbookConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
     @Autowired
-    public CookbookConfig(ApplicationContext applicationContext){
+    public CookbookConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     @Bean
-    public LocaleResolver localeResolver(){
+    public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
         localeResolver.setDefaultLocale(Locale.GERMAN);
         return localeResolver;
@@ -69,7 +67,7 @@ public class CookbookConfig implements WebMvcConfigurer {
 
     @Bean
     @ConfigurationProperties(prefix = "app.datasource")
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setUsername(dbUsername);
         config.setPassword(dbPassword);
@@ -80,7 +78,7 @@ public class CookbookConfig implements WebMvcConfigurer {
     }
 
     @Bean(name = COOOKBOOK_CONVERTER_BEAN_NAME)
-    public ConversionService conversionService(Set<Converter<?,?>> converters){
+    public ConversionService conversionService(Set<Converter<?, ?>> converters) {
         ConversionServiceFactoryBean cfb = new ConversionServiceFactoryBean();
         cfb.setConverters(converters);
         cfb.afterPropertiesSet();
