@@ -1,0 +1,58 @@
+package ru.otus.cookbook.data.converters;
+
+import ru.otus.cookbook.data.dto.RecipeModel;
+import ru.otus.cookbook.data.entity.RecipeEntity;
+import ru.otus.cookbook.frontend.util.UrlResolver;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RecipeToModelConverter implements Converter<RecipeEntity, RecipeModel> {
+
+    private UrlResolver urlResolver;
+
+    @Autowired
+    public RecipeToModelConverter (UrlResolver urlResolver){
+        this.urlResolver = urlResolver;
+    }
+
+    @Override
+    public RecipeModel convert(RecipeEntity source) {
+        var target = new RecipeModel();
+
+        target.setId(source.getId());
+        target.setInstructions(source.getInstructions());
+        target.setTitle(source.getTitle());
+        target.setCategoryId(source.getCategory().getId());
+        target.setShortDescription(createShortDescription(source));
+        target.setUrl(urlResolver.resolve(target));
+        return target;
+    }
+
+    private String createShortDescription(RecipeEntity source){
+        String instructions = source.getInstructions();
+        String shortDescription;
+
+        if (StringUtils.isBlank(instructions)){
+            return null;
+        }
+
+        if (instructions.length()>150){
+            shortDescription = instructions.substring(0, 150);
+
+        } else if (!instructions.contains("\n")) {
+            return instructions;
+
+        } else {
+            shortDescription = instructions;
+        }
+
+        if (shortDescription.contains("\n")){
+            return shortDescription.split("\n")[0] + " ...";
+        }
+
+        return shortDescription.substring(0, shortDescription.lastIndexOf(' ')) + " ...";
+    }
+}

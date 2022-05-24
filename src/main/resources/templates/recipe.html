@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title th:text="${recipe.title}"></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <div th:replace="fragments/header.html"></div>
+
+            <!-- Content -->
+            <section>
+                <header class="main">
+                    <h1 th:text="${recipe.title}"></h1>
+                </header>
+                <p class="showLineBreak" th:text="${recipe.instructions}" ></p>
+            </section>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/sidebar.html"></div>
+
+</div>
+
+<div th:replace="fragments/scripts.html"></div>
+
+</body>
+</html>

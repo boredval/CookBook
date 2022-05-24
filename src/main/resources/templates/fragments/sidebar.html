@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="categories" type="java.util.List<at.schrer.cookbook.data.dto.CategoryModel>"*/-->
+<!--/*@thymesVar id="homepageUrl" type="java.lang.String"*/-->
+<!--/*@thymesVar id="addCategoryUrl" type="java.lang.String"*/-->
+<div id="sidebar" class="">
+    <div class="inner">
+
+        <!-- Search -->
+        <section id="search" class="alt">
+            <form method="get" action="/">
+                <input type="text" name="query" id="query" placeholder="Search">
+            </form>
+        </section>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <header class="major">
+                <h2 th:text="#{sidebar.menu}">Menu</h2>
+            </header>
+            <ul>
+                <li><a th:href="${homepageUrl}" th:text="#{sidebar.homepage}">Homepage</a></li>
+                <li th:each="category : ${categories}"><a th:href="${category.url}" th:text="${category.title}"></a></li>
+            </ul>
+        </nav>
+        <section>
+            <a th:href="${addCategoryUrl}" th:text="#{category.add.button}" class="button fit">New Category</a>
+        </section>
+
+    </div>
+    <a href="#sidebar" class="toggle">Toggle</a>
+</div>
+</html>
